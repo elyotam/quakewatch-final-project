@@ -12,7 +12,7 @@ service:
 
 config:
   APP_ENV: production
-  APP_NAME: QuakeWatch
+  APP_NAME: QuakeWatch Final
 
 secret:
   API_KEY: quakewatch123
