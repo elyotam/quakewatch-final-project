@@ -1,0 +1,32 @@
+name: CI
+
+on:
+  push:
+    branches-ignore:
+      - main
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+          pip install pylint
+
+      - name: Run pylint
+        run: |
+          pylint *.py || true
+
+      - name: Build Docker image
+        run: |
+          docker build -t quakewatch:ci .

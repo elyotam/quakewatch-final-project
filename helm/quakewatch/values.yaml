@@ -1,0 +1,27 @@
+replicaCount: 2
+
+image:
+  repository: cohenelyotam/quakewatch
+  tag: latest
+  pullPolicy: IfNotPresent
+
+service:
+  type: LoadBalancer
+  port: 80
+  targetPort: 5000
+
+config:
+  APP_ENV: development
+  APP_NAME: QuakeWatch
+
+secret:
+  API_KEY: quakewatch123
+
+hpa:
+  minReplicas: 2
+  maxReplicas: 5
+  averageUtilization: 50
+
+cronjob:
+  schedule: "* * * * *"
+  url: "http://quakewatch-service/health"
